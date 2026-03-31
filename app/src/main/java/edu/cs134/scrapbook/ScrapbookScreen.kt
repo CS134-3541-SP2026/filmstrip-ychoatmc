@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.FileProvider
 import java.io.File
 import androidx.core.graphics.scale
+import kotlin.contracts.contract
 
 @Composable
 fun ScrapbookScreen(viewModel: ScrapbookViewModel,
@@ -30,6 +31,16 @@ fun ScrapbookScreen(viewModel: ScrapbookViewModel,
     var selectedSlot by rememberSaveable { mutableStateOf<Int?>(null) }
 
     // todo: create a launcher
+    val cameraLauncher =
+        rememberLauncherForActivityResult(
+        ActivityResultContracts
+            .TakePicturePreview()
+    ) {
+        image ->
+        image?.let {
+            viewModel.setPhoto(selectedSlot, it)
+        }
+    }
 
     Column (
         modifier = modifier
@@ -41,6 +52,7 @@ fun ScrapbookScreen(viewModel: ScrapbookViewModel,
             onClick = {
                 selectedSlot = 1
                 // todo: activate the launcher
+                cameraLauncher.launch(null)
             }
         )
     }
