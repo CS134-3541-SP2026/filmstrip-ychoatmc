@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider
 import java.io.File
 import androidx.core.graphics.scale
 import kotlin.contracts.contract
+import androidx.compose.runtime.collectAsState
 
 @Composable
 fun ScrapbookScreen(viewModel: ScrapbookViewModel,
@@ -38,7 +39,8 @@ fun ScrapbookScreen(viewModel: ScrapbookViewModel,
     ) {
         image ->
         image?.let {
-            viewModel.setPhoto(selectedSlot, it)
+            viewModel.addPhoto(it)
+//            viewModel.setPhoto(selectedSlot, it)
         }
     }
 
@@ -47,13 +49,46 @@ fun ScrapbookScreen(viewModel: ScrapbookViewModel,
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ){
+        viewModel.photoList.collectAsState().value.forEach {
+            ScrapbookSlot(
+                //photo = viewModel.photoList,
+                photo = it,
+                onClick = {
+                    selectedSlot = 1
+                    // todo: activate the launcher
+                    cameraLauncher.launch(null)
+                }
+            )
+        }
         ScrapbookSlot(
-            photo = viewModel.photo1,
+            //photo = viewModel.photoList,
+            photo = null,
             onClick = {
                 selectedSlot = 1
                 // todo: activate the launcher
                 cameraLauncher.launch(null)
             }
         )
+        /**
+        ScrapbookSlot(
+            //photo = viewModel.photoList,
+            photo = viewModel.photo2,
+            onClick = {
+                selectedSlot = 2
+                // todo: activate the launcher
+                cameraLauncher.launch(null)
+            }
+        )
+        ScrapbookSlot(
+            //photo = viewModel.photoList,
+            photo = viewModel.photo3,
+            onClick = {
+                selectedSlot = 3
+                // todo: activate the launcher
+                cameraLauncher.launch(null)
+            }
+        )
+        */
+
     }
 }
