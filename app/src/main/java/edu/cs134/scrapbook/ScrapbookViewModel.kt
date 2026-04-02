@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.graphics.createBitmap
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,12 +15,14 @@ import java.io.File
 
 class ScrapbookViewModel : ViewModel() {
 
-    private val _photoList = MutableStateFlow<List<Bitmap?>>(emptyList())
+    private val _photoList = MutableStateFlow<List<Bitmap?>>(List(1){null})
 
     val photoList: StateFlow<List<Bitmap?>> = _photoList
 
     fun addPhoto(bitmap: Bitmap) {
-        _photoList.value = _photoList.value + bitmap
+        val tempList = _photoList.value.toMutableList()
+        tempList[_photoList.value.size - 1] = bitmap
+        _photoList.value = tempList + null
     }
 
     /**
@@ -34,6 +37,6 @@ class ScrapbookViewModel : ViewModel() {
             2 -> photo2 = bitmap
             3 -> photo3 = bitmap
         }
-    }
-    */
+    }*/
+
 }
