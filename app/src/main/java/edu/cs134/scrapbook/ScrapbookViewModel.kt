@@ -25,6 +25,17 @@ class ScrapbookViewModel : ViewModel() {
         _photoList.value = tempList + null
     }
 
+    fun refreshPhoto(loc: Int, context: Context){
+        val file = File(context.externalCacheDir, "photo_$loc.jpg")
+        if(file.exists()){
+            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+
+            if(loc + 1 == _photoList.value.size) {
+                addPhoto(bitmap)
+            }
+        }
+    }
+
     /**
     var photo1 by mutableStateOf<Bitmap?>(null)
     var photo2 by mutableStateOf<Bitmap?>(null)
