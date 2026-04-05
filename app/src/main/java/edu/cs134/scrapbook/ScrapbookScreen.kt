@@ -2,7 +2,6 @@ package edu.cs134.scrapbook
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -23,17 +22,16 @@ import androidx.core.content.FileProvider
 import java.io.File
 import androidx.core.graphics.scale
 import androidx.compose.runtime.collectAsState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.withIndex
 import kotlinx.coroutines.launch
 
 val Context.dataStore by preferencesDataStore("scrapbook_prefs")
 
+/**
 fun getContextualUri(context: Context): Uri {
     val tempFile = File.createTempFile(
         "shot_",
@@ -44,8 +42,7 @@ fun getContextualUri(context: Context): Uri {
         "${context.packageName}.fileprovider",
         tempFile
     )
-}
-
+}*/
 
 @SuppressLint("FlowOperatorInvokedInComposition")
 @Composable
@@ -63,7 +60,6 @@ fun ScrapbookScreen(viewModel: ScrapbookViewModel,
     for(i in 0..< totalPhotos) {
         viewModel.refreshPhoto(i, LocalContext.current)
     }
-    // todo: create a launcher
     val cameraLauncher =
         rememberLauncherForActivityResult(
         ActivityResultContracts
@@ -83,9 +79,9 @@ fun ScrapbookScreen(viewModel: ScrapbookViewModel,
             /**
         image ->
         image?.let {
-            viewModel.addPhoto(it)*/
-//            viewModel.setPhoto(selectedSlot, it)
-//        }
+            viewModel.addPhoto(it)
+            viewModel.setPhoto(selectedSlot, it)
+        }*/
     }
 
     Column (
@@ -93,11 +89,8 @@ fun ScrapbookScreen(viewModel: ScrapbookViewModel,
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ){
-        //Text("totalPhotos: $totalPhotos & ${viewModel.photoList.collectAsState().value.size}")
-        //for(i in 0..< viewModel.photoList.collectAsState().value.size){
         viewModel.photoList.collectAsState().value.forEachIndexed { index, bitmap ->
             ScrapbookSlot(
-                //photo = viewModel.photoList,
                 photo = bitmap,
                 onClick = {
 //                    selectedSlot = 1

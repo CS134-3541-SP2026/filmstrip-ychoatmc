@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -24,7 +23,7 @@ fun ScrapbookSlot(
     photo: Bitmap?,
     onClick: () -> Unit
 ) {
-    Column() {
+    Column{
 
         Box(
             modifier = Modifier

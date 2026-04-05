@@ -3,11 +3,6 @@ package edu.cs134.scrapbook
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.core.graphics.createBitmap
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -43,11 +38,9 @@ class ScrapbookViewModel : ViewModel() {
 
     fun setPhoto(slot: Int?, bitmap: Bitmap) {
         when(slot) {
-//            1 -> photoList = photoList + bitmap
             1 -> photo1 = bitmap
             2 -> photo2 = bitmap
             3 -> photo3 = bitmap
         }
     }*/
-
 }
